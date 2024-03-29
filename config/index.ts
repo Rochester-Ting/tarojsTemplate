@@ -1,11 +1,11 @@
-import Components from 'unplugin-vue-components/webpack';
-import NutUIResolver from '@nutui/auto-import-resolver';
+import Components from 'unplugin-vue-components/webpack'
+import NutUIResolver from '@nutui/auto-import-resolver'
 import { UnifiedWebpackPluginV5 } from 'weapp-tailwindcss/webpack'
-
+import path from 'path'
 const config = {
   projectName: 'myApp',
   date: '2024-3-29',
-  designWidth (input) {
+  designWidth(input) {
     if (input?.file?.replace(/\\+/g, '/').indexOf('@nutui') > -1) {
       return 375
     }
@@ -20,20 +20,25 @@ const config = {
   sourceRoot: 'src',
   outputRoot: 'dist',
   plugins: ['@tarojs/plugin-html', '@tarojs/plugin-http'],
-  defineConstants: {
-  },
+  defineConstants: {},
   copy: {
-    patterns: [
-    ],
-    options: {
-    }
+    patterns: [],
+    options: {}
   },
   framework: 'vue3',
   compiler: {
     type: 'webpack5',
     prebundle: { enable: false }
   },
-  sass:{
+  alias: {
+    '@/api': path.resolve(__dirname, '..', 'src/api'),
+    '@/http': path.resolve(__dirname, '..', 'src/http'),
+    '@/components': path.resolve(__dirname, '..', 'src/components'),
+    '@/utils': path.resolve(__dirname, '..', 'src/utils'),
+    '@/pages': path.resolve(__dirname, '..', 'src/pages'),
+    '@/assets': path.resolve(__dirname, '..', 'src/assets')
+  },
+  sass: {
     data: `@import "@nutui/nutui-taro/dist/styles/variables.scss";`
   },
   mini: {
@@ -42,20 +47,24 @@ const config = {
         plugin: {
           install: {
             plugin: UnifiedWebpackPluginV5,
-            args: [{
-              appType: 'taro'
-            }]
+            args: [
+              {
+                appType: 'taro'
+              }
+            ]
           }
         }
       })
-      chain.plugin('unplugin-vue-components').use(Components({
-        resolvers: [
-          NutUIResolver({
-            importStyle: 'sass',
-            taro: true
-          })
-        ]
-      }))
+      chain.plugin('unplugin-vue-components').use(
+        Components({
+          resolvers: [
+            NutUIResolver({
+              importStyle: 'sass',
+              taro: true
+            })
+          ]
+        })
+      )
     },
     postcss: {
       pxtransform: {
@@ -82,21 +91,23 @@ const config = {
         // 设置成 false 表示 不去除 * 相关的选择器区块
         // 假如开启这个配置，它会把 tailwindcss 整个 css var 的区域块直接去除掉
         config: {
-          removeCursorStyle: false,
+          removeCursorStyle: false
         }
       }
     }
   },
   h5: {
     webpackChain(chain) {
-      chain.plugin('unplugin-vue-components').use(Components({
-        resolvers: [
-          NutUIResolver({
-            importStyle: 'sass',
-            taro: true
-          })
-        ]
-      }))
+      chain.plugin('unplugin-vue-components').use(
+        Components({
+          resolvers: [
+            NutUIResolver({
+              importStyle: 'sass',
+              taro: true
+            })
+          ]
+        })
+      )
     },
     publicPath: '/',
     staticDirectory: 'static',
@@ -104,8 +115,7 @@ const config = {
     postcss: {
       autoprefixer: {
         enable: true,
-        config: {
-        }
+        config: {}
       },
       cssModules: {
         enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true

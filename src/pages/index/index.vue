@@ -16,7 +16,7 @@ import { ref } from 'vue'
 import { useLoad } from '@tarojs/taro'
 import { Dongdong } from '@nutui/icons-vue-taro'
 import styles from './index.module.scss'
-import { getList } from '../../api/example'
+import { getList } from '@/api/example'
 const count = ref<number>(0)
 
 useLoad(async () => {

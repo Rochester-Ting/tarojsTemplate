@@ -18,9 +18,15 @@
     "jsx": "preserve",
     "allowJs": true,
     "resolveJsonModule": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ]
+    "typeRoots": ["node_modules/@types"],
+    "paths": {
+      "@/api/*": ["./src/api/*"],
+      "@/http/*": ["./src/http/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/utils/*": ["./src/utils/*"],
+      "@/pages/*": ["./src/pages/*"],
+      "@/assets/*": ["./src/assets/*"]
+    }
   },
   "types": ["@tarojs/components/vue3"],
   "include": ["./src", "./types", "components.d.ts"],
