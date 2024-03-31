@@ -2,7 +2,7 @@
   "miniprogramRoot": "dist/",
   "description": "test项目",
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": false,
     "enhance": false,
     "compileHotReLoad": false,
